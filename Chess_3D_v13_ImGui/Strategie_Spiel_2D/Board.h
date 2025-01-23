@@ -25,16 +25,6 @@ struct BoardData
 		7, 7, 7, 7, 7, 7, 7, 7, //black
 		8, 9, 10, 12, 11, 10, 9, 8
 	};
-	/*Uint16 boardState[8][8] = {
-		6, 9, 6, 6, 6, 6, 6, 6, //white
-		8, 6, 8, 6, 7, 0, 1, 6,
-		6, 6, 10, 6, 6, 6, 6, 6,
-		11, 8, 6, 6, 1, 6, 5, 6,
-		6, 6, 6, 6, 6, 4, 6, 6,
-		6, 6, 0, 6, 1, 6, 6, 6,
-		6, 0, 6, 6, 6, 12, 6, 6, //black
-		6, 6, 6, 1, 1, 6, 6, 6
-	};*/
 	// 0 bauer weiß, 1 turm w, 2 springer w, 3 läufer w, 4 dame w, 5 könig w, 
 	// 6 leer
 	// 7 bauer schwarz, 8 turm s, 9 springer s, 10 läufer s, 11 dame s, 12 könig s
@@ -65,7 +55,6 @@ public:
 	bool MoveFigure(glm::vec3 chooseSpot, GLuint shaderIdGUI, Camera* cam);
 	bool GetCurrentPlayer();
 	void SetCurrentPlayer(Camera* cam);
-	void FillBoardFromOld(Board* b);
 
 	BoardData bd;
 

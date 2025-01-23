@@ -68,45 +68,13 @@ public:
 				
 				puffer >> f1 >> f2 >> f3;
 
-				storeIndices(f1, f);
-				storeIndices(f2, f);
-				storeIndices(f3, f);
-
-				/*StoreVertexByIndex(vertices, indices, v, vt, vn, f1, indexCounter);
-				StoreVertexByIndex(vertices, indices, v, vt, vn, f2, indexCounter);
-				StoreVertexByIndex(vertices, indices, v, vt, vn, f3, indexCounter);*/
+				StoreIndices(f1, f);
+				StoreIndices(f2, f);
+				StoreIndices(f3, f);
 			}
 		}
 
 		file.close();
-
-		//Slow but less memory
-		//Store the gained vertex/texture coords according to the indices
-		/*Uint32 ti = 0; //counts only the original faces (the size of vertices)
-		std::vector<glm::vec3> tF; //stores all the faces only once
-		for (Uint32 i = 0; i < f.size(); i++)
-		{			
-			bool isIn = false;
-			for (Uint32 j = 0; j < tF.size(); j++)
-			{
-				if (f[i].x == tF[j].x && f[i].y == tF[j].y && f[i].z == tF[j].z) //checks if the current face is already stored
-				{
-					isIn = true;
-					indices->push_back(j);
-					break;
-				}
-			}
-
-			if (!isIn)
-			{
-				vertices->push_back({ v[f[i].x].x, v[f[i].x].y, v[f[i].x].z,
-					vt[f[i].y].x, vt[f[i].y].y,
-					vn[f[i].z].x, vn[f[i].z].y, vn[f[i].z].z });
-				tF.push_back(f[i]);
-				indices->push_back(ti);
-				ti++;
-			}
-		}*/ 
 
 		//Faster but more memory usage (indexing gets useless!)
 		for (Uint32 i = 0; i < f.size(); i++)
@@ -117,29 +85,6 @@ public:
 					vn[face->z].x, vn[face->z].y, vn[face->z].z });
 			indices->push_back(i);
 		}
-
-		//Slow but maybe a better implementation
-		/*Uint32 nOriginalFaces = 0;
-		std::vector<glm::vec3> facesAlreadyStored;
-		for (Uint32 i = 0; i < f.size(); i++)
-		{
-			auto storedFaceIter = std::find(facesAlreadyStored.begin(), facesAlreadyStored.end(), f[i]);
-			if (storedFaceIter == facesAlreadyStored.end())
-			{
-				//Face not in vector
-				vertices->push_back({ v[f[i].x].x, v[f[i].x].y, v[f[i].x].z,
-					vt[f[i].y].x, vt[f[i].y].y,
-					vn[f[i].z].x, vn[f[i].z].y, vn[f[i].z].z });
-				indices->push_back(nOriginalFaces);
-				facesAlreadyStored.push_back(f[i]);
-				nOriginalFaces++;
-			}
-			else
-			{
-				//Face already in vector
-				indices->push_back(storedFaceIter - facesAlreadyStored.begin());
-			}
-		}*/
 
 		return true;
 	}
@@ -222,7 +167,7 @@ public:
 	}
 
 private:
-	static inline void storeIndices(std::string x, std::vector<glm::vec3>& f)
+	static inline void StoreIndices(std::string x, std::vector<glm::vec3>& f)
 	{
 		Uint32 iv = 0, ivt = 0, ivn = 0;
 
@@ -234,26 +179,5 @@ private:
 		puffer >> iv >> ivt >> ivn;
 
 		f.push_back({ iv - 1, ivt - 1, ivn - 1 });
-	}
-
-	static inline void StoreVertexByIndex(std::vector<Vertex>* vertices, std::vector<Uint32>* indices,
-		std::vector<glm::vec3>& v, std::vector<glm::vec2>& vt, std::vector<glm::vec3>& vn,
-		std::string vertexDataIndices, Uint32& indexCounter)
-	{
-		Uint32 iv = 0, ivt = 0, ivn = 0;
-
-		for (char& c : vertexDataIndices)
-			if (c == '/')
-				c = ' ';
-
-		std::stringstream puffer(vertexDataIndices);
-		puffer >> iv >> ivt >> ivn;
-		iv--; ivt--; ivn--;
-
-		vertices->push_back({ v[iv].x, v[iv].y, v[iv].z,
-				vt[ivt].x, vt[ivt].y,
-				vn[ivn].x, vn[ivn].y, vn[ivn].z });
-		indices->push_back(indexCounter);
-		indexCounter++;
 	}
 };

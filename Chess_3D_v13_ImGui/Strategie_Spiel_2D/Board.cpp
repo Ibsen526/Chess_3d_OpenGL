@@ -8,8 +8,6 @@ Board::Board()
 
 	Model::InitTextures(ASSET_PATH"Board/chessBoardTex.png", boardTexId, GL_RGB, true);
 
-	//push back every figure concurently in a separate thread and then wait until all are finished!!
-	//	also measure time! if it is any faster which it should be!
 	const int sizeFigures = 7;
 	figures = { Model(), Model(), Model(), Model(), Model(), Model(), Model() };
 	std::thread createFiguresThread[sizeFigures] = {
@@ -24,14 +22,6 @@ Board::Board()
 
 	for (Uint8 i = 0; i < sizeFigures; i++)
 		createFiguresThread[i].join();
-
-	//Init the figures (one of every one)
-	/*figures.push_back(Model(ASSET_PATH"Figures/pawn.mobj", false, {0.0f,-0.7f}));
-	figures.push_back(Model(ASSET_PATH"Figures/rook.mobj", false, { 0.0f,-0.7f }));
-	figures.push_back(Model(ASSET_PATH"Figures/knight.mobj", false, { 0.0f,-0.7f }));
-	figures.push_back(Model(ASSET_PATH"Figures/bishop.mobj", false, { 0.0f,-0.7f }));
-	figures.push_back(Model(ASSET_PATH"Figures/queen.mobj", false, { 0.0f,-0.7f }));
-	figures.push_back(Model(ASSET_PATH"Figures/king.mobj", false, { 0.0f,-0.7f }));*/
 
 	for (Model& m : figures)
 		m.InitBuffers();
@@ -66,8 +56,6 @@ Board::Board()
 
 	bd.lostFigures.push_back({ 6,6,6,6,6,6,6,6,6,6,6,6,6,6,6 });
 	bd.lostFigures.push_back({ 6,6,6,6,6,6,6,6,6,6,6,6,6,6,6 });
-	//lostFigures.push_back({ 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2 });
-	//lostFigures.push_back({ 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9 });
 
 	//Init the other variables
 	bd.currentSelectedVal = 6; //nothing
@@ -347,29 +335,6 @@ void Board::SetCurrentPlayer(Camera* cam)
 		cam->yaw = &cam->yawPTwo;
 		cam->pitch = &cam->pitchPTwo;
 	}
-}
-
-void Board::FillBoardFromOld(Board* b)
-{
-	/*bd.gameState = b->bd.gameState;
-	bd.lastGameState = b->bd.lastGameState;
-
-	boardModelMatrix = b->boardModelMatrix;
-	for (size_t i = 0; i < 8; i++)
-		for (size_t j = 0; j < 8; j++)
-			boardState[i][j] = b->boardState[i][j];
-
-	lostFigures = b->lostFigures;
-	currentSelectedVal = b->currentSelectedVal;
-	currentSelectedBoardPos = b->currentSelectedBoardPos;
-
-	kingPlayerOne = b->kingPlayerOne;
-	kingPlayerTwo = b->kingPlayerTwo;
-
-	currentPlayer = b->currentPlayer;
-	pawnEndPosition = b->pawnEndPosition;*/
-
-
 }
 
 // Private
