@@ -1,4 +1,3 @@
-#define GLEW_STATIC
 #include <GL/glew.h>
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
@@ -179,7 +178,7 @@ int main(int argc, char* args[])
 
 
 			ImGui_ImplOpenGL3_NewFrame();
-			ImGui_ImplSDL2_NewFrame(window);
+			ImGui_ImplSDL2_NewFrame();
 			ImGui::NewFrame();
 
 			cam->RenderGameStatusScreen(board.GetCurrentPlayer(), board.bd.gameState, window, SCREEN_W);

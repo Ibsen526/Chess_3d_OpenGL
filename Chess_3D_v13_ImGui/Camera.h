@@ -2,10 +2,10 @@
 #include "GUI.h"
 #include "GameState.h"
 
-#define ASSET_PATH "../../Assets/"
+#define ASSET_PATH "../Assets/"
 
 #include <imgui.h>
-#include <imgui_impl_sdl.h>
+#include <imgui_impl_sdl2.h>
 #include <imgui_impl_opengl3.h> //imgui und sdl_image funzen nicht miteinander!!!!
 
 #include <array>
