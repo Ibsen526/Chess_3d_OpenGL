@@ -163,7 +163,7 @@ int main(int argc, char* args[])
 		//enum gameState { PAUSE, CHECK1, CHECK2, CHECKMATE1, CHECKMATE2, GETBACKLOSTFIGURE, NOTHING };
 		while (!close) //Main Schleife
 		{
-			glClearColor(0.0f, 0.0f, 0.5f, 1.0f); //0;0, 1;255
+			glClearColor(0.2f, 0.2f, 0.2f, 1.0f); //0;0, 1;255
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Löscht den Bildschirm auf die mit glClearColor eingestellte Farbe
 			time += deltaTime;
 

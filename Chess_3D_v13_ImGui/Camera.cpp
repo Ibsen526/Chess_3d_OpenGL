@@ -352,6 +352,7 @@ bool Camera::RenderPauseMenu(int SW, int SH, bool& pause, bool& exit, SDL_Window
 
 void Camera::SetLightPosToCam()
 {
+	glUniform3fv(viewPosLocation, 1, &camPos[0][0]);
 	glUniform3fv(lightPosLocation, 1, &camPos[0][0]);
 }
 
